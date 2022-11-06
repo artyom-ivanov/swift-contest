@@ -30,12 +30,12 @@ for number in 0...maxNumber {
         .reversed()
     )
     
-    let bracketString = binaryString
-        .replacingOccurrences(of: "0", with: "(")
-        .replacingOccurrences(of: "1", with: ")")
-    
-    if checkBrackets(bracketString) {
-        print(bracketString)
+    if checkBrackets(binaryString) {
+        print(
+            binaryString
+            .replacingOccurrences(of: "0", with: "(")
+            .replacingOccurrences(of: "1", with: ")")
+        )
     }
 }
 
@@ -43,11 +43,15 @@ func checkBrackets(_ input: String) -> Bool {
     
     var openedBrackets: Int = 0
     
-    for symbol in input {
-        if symbol == "(" {
+    for (index, symbol) in input.enumerated() {
+        if index > input.count / 2 && openedBrackets >= input.count / 2 {
+            return false;
+        }
+        
+        if symbol == "0" {
             openedBrackets += 1
         }
-        if symbol == ")" {
+        if symbol == "1" {
             openedBrackets -= 1
         }
         if openedBrackets < 0 {
@@ -59,4 +63,3 @@ func checkBrackets(_ input: String) -> Bool {
     }
     return true
 }
-
